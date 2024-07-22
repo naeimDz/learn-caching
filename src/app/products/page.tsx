@@ -30,7 +30,7 @@ export default function ProductListPage() {
           setLoading(false);
           return;
         }
-
+else {
         const querySnapshot = await getDocs(collection(db, 'products'));
         const productList = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -39,14 +39,15 @@ export default function ProductListPage() {
 
         setProducts(productList);
         tagBasedCache('products', 'all_products', productList);
-      } catch (err) {
+      }
+    } catch (err) {
         console.error('Error fetching products:', err);
         setError('An error occurred while fetching products. Please try again later.');
       } finally {
         setLoading(false);
-      }
+          }
     };
-
+  
     fetchProducts();
   }, []);
 
