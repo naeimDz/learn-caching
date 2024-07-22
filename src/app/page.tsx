@@ -1,4 +1,5 @@
 "use client"
+import ProductList from "@/components/ProductList";
 import { fifoCache, lfuCache, lruCache } from "@/lib/cache";
 import { db } from "@/lib/firebase";
 import { query, collection, orderBy, limit, getDocs } from "firebase/firestore";
@@ -63,21 +64,44 @@ export default function Home() {
       </div>
 
       {/* Featured Products */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">Featured Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {featuredProducts.map((product) => (
-            <Link href={`/products/${product.id}`} key={product.id} className="block">
-              <div className="border rounded-lg overflow-hidden hover:shadow-lg transition">
-                <img src={product.imageUrl} alt={product.name} className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <h3 className="font-semibold">{product.name}</h3>
-                  <p className="text-gray-600">${product.price.toFixed(2)}</p>
-                </div>
+      <ProductList category={"Books"} />
+    {/* Categories */}
+    <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-4">Shop by Category</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {['Electronics', 'Clothing', 'Books', 'Home & Garden'].map((category) => (
+            <Link href={`/categories/${category.toLowerCase()}`} key={category} className="block">
+              <div className="bg-gray-100 rounded-lg p-6 text-center hover:bg-gray-200 transition">
+                <h3 className="font-semibold">{category}</h3>
               </div>
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* About Us */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-4">About Us</h2>
+        <p className="text-gray-600">
+          We're passionate about providing high-quality products at affordable prices. 
+          Our team is dedicated to ensuring your shopping experience is smooth and enjoyable.
+        </p>
+      </section>
+
+      {/* Newsletter Signup */}
+      <section className="bg-gray-100 rounded-lg p-6">
+        <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
+        <p className="mb-4">Subscribe to our newsletter for the latest deals and updates.</p>
+        <form className="flex flex-col sm:flex-row gap-2">
+          <input 
+            type="email" 
+            placeholder="Enter your email" 
+            className="flex-grow px-4 py-2 rounded"
+          />
+          <button type="submit" className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition">
+            Subscribe
+          </button>
+        </form>
       </section>
     </div>
    </>

@@ -28,6 +28,17 @@ generateBuildId: async () => {
     const timestamp = Math.floor(Date.now() / 1000);
     return `build-${timestamp}`;
 },
+images: {
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'fakestoreapi.com',
+    },
+    {
+      hostname: 'cdn.dummyjson.com'
+    }
+  ],
+},
 };
 
 module.exports = nextConfig

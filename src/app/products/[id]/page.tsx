@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { getCachedData, timeBasedCache } from '@/lib/cache';
 import { db } from '@/lib/firebase';
+import Image from "next/image"
 
 
 type ProductProps = {
@@ -50,7 +51,7 @@ export default function ProductPage({ params }: ProductProps) {
       <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2">
-          <img src={product.imageUrl} alt={product.name} className="w-full h-auto object-cover rounded-lg" />
+        <Image height={500} width={1000} src={product.imageUrl} alt={product.name} className="w-full h-auto object-cover rounded-lg" />
         </div>
         <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
           <p className="text-xl font-semibold mb-2">${product.price.toFixed(2)}</p>
