@@ -14,16 +14,23 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Customize the output filenames
-    config.output.chunkFilename = `static/${buildId}/[name].js`;
+  webpack: (config, { buildId, dev }) => {
+    const newConfig = config;
 
-    // Return the updated config
-    return config;
-  },
+    if (!dev && newConfig.output.filename.startsWith('static')) {
+        newConfig.output.filename = newConfig.output.filename.replace('[name]', `[name]-${buildId}`);
+        newConfig.output.chunkFilename = newConfig.output.chunkFilename.replace('[name]', `[name]-${buildId}`);
+    }
+
+    return newConfig;
+},
+generateBuildId: async () => {
+    const timestamp = Math.floor(Date.now() / 1000);
+    return `build-${timestamp}`;
+},
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig
 
 
 
