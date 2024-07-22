@@ -22,7 +22,8 @@ export default function ProductList({ category }: { category: string }) {
       const cachedProducts = getCachedData(`products_${category}`);
       if (cachedProducts) {
         setProducts(cachedProducts as Product[]);
-      }       
+      }   
+      else {    
         const querySnapshot = await getDocs(collection(db, 'products'));
         const productList = querySnapshot.docs.map(doc => ({
           id: doc.id, // Assuming you have an id field in your Firestore documents
@@ -30,7 +31,7 @@ export default function ProductList({ category }: { category: string }) {
         } as Product));
         setProducts(productList);
         tagBasedCache('products', `products_${category}`, productList);
-      
+      }
 
     };
     fetchProducts();
